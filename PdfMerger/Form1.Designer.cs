@@ -68,6 +68,7 @@
             btnRemove.TabIndex = 2;
             btnRemove.Text = "- Remove";
             btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
             // 
             // btnMoveUp
             // 
@@ -78,6 +79,7 @@
             btnMoveUp.TabIndex = 3;
             btnMoveUp.Text = "▲ Up";
             btnMoveUp.UseVisualStyleBackColor = true;
+            btnMoveUp.Click += btnMoveUp_Click;
             // 
             // btnMoveDown
             // 
@@ -88,6 +90,7 @@
             btnMoveDown.TabIndex = 4;
             btnMoveDown.Text = "▼ Down";
             btnMoveDown.UseVisualStyleBackColor = true;
+            btnMoveDown.Click += btnMoveDown_Click;
             // 
             // btnMerge
             // 

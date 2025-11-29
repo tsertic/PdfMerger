@@ -8,7 +8,7 @@ namespace PdfMerger
 {
     public partial class Form1 : Form
     {
-        private List<string> pdfFiles=new List<string>();
+        private List<string> pdfFiles = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace PdfMerger
         private void RefreshListBox()
         {
             lstPdfFiles.Items.Clear();
-            for(int i = 0; i < pdfFiles.Count; i++)
+            for (int i = 0; i < pdfFiles.Count; i++)
             {
                 string fileName = System.IO.Path.GetFileName(pdfFiles[i]);
                 lstPdfFiles.Items.Add($"{i + 1}. {fileName}");
@@ -54,8 +54,53 @@ namespace PdfMerger
         }
         private void UpdateStatus()
         {
-            if (pdfFiles.Count == 0) { lblStatus.Text = "Ready.Add PDF files to merge."; } else {
+            if (pdfFiles.Count == 0) { lblStatus.Text = "Ready.Add PDF files to merge."; }
+            else
+            {
                 lblStatus.Text = $"{pdfFiles.Count} file(s) added.";
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lstPdfFiles.SelectedIndices.Count > 0)
+            {
+
+                for (int i = lstPdfFiles.SelectedIndices.Count - 1; i >= 0; i--)
+                {
+                    int index = lstPdfFiles.SelectedIndices[i];
+                    pdfFiles.RemoveAt(index);
+                }
+                RefreshListBox();
+                UpdateStatus();
+            }
+        }
+
+        private void btnMoveUp_Click(object sender, EventArgs e)
+        {
+            if (lstPdfFiles.SelectedIndex > 0)
+            {
+                int index = lstPdfFiles.SelectedIndex;
+                string temp = pdfFiles[index];
+                pdfFiles[index] = pdfFiles[index - 1];
+                pdfFiles[index - 1] = temp;
+
+                RefreshListBox();
+                lstPdfFiles.SelectedIndex = index - 1;  // Keep selection on moved item
+            }
+        }
+
+        private void btnMoveDown_Click(object sender, EventArgs e)
+        {
+            if (lstPdfFiles.SelectedIndex >= 0 && lstPdfFiles.SelectedIndex < pdfFiles.Count - 1)
+            {
+                int index = lstPdfFiles.SelectedIndex;
+                string temp = pdfFiles[index];
+                pdfFiles[index] = pdfFiles[index + 1];
+                pdfFiles[index + 1] = temp;
+
+                RefreshListBox();
+                lstPdfFiles.SelectedIndex = index + 1;  // Keep selection on moved item
             }
         }
     }
