@@ -4,6 +4,9 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data;
 
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+
 namespace PdfMerger
 {
     public partial class Form1 : Form
@@ -101,6 +104,60 @@ namespace PdfMerger
 
                 RefreshListBox();
                 lstPdfFiles.SelectedIndex = index + 1;  // Keep selection on moved item
+            }
+        }
+
+        private void btnMerge_Click(object sender, EventArgs e)
+        {
+            if (pdfFiles.Count < 2)
+            {
+                MessageBox.Show("Please add at least 2 PDF files to merge.","Not enough files",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "Save merged PDF as";
+                saveFileDialog.Filter = "PDF file (*.pdf)|*.pdf";
+                saveFileDialog.DefaultExt = "pdf";
+                saveFileDialog.FileName = "Merged_Document.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        lblStatus.Text = "Merging PDF files...";
+                        Application.DoEvents(); //update UI
+
+                        //create output document
+
+                        using (PdfDocument outputDocument = new PdfDocument())
+                        {
+                            foreach (string file in pdfFiles)
+                            {
+                                using (PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import))
+                                {
+                                    for (int i = 0; i < inputDocument.PageCount; i++)
+                                    {
+                                        outputDocument.AddPage(inputDocument.Pages[i]);
+                                    }
+                                }
+                            }
+                            // Save the merged document
+                            outputDocument.Save(saveFileDialog.FileName);
+
+                        }
+
+                        lblStatus.Text = "Merge complete!";
+                        MessageBox.Show($"PDF files merged successfully!\n\nSaved to:\n{saveFileDialog.FileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        lblStatus.Text = "Error occurred";
+                        MessageBox.Show($"Error merging PDF files:\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

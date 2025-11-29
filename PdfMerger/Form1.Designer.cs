@@ -102,6 +102,7 @@
             btnMerge.TabIndex = 5;
             btnMerge.Text = "📄 Merge PDFs";
             btnMerge.UseVisualStyleBackColor = true;
+            btnMerge.Click += btnMerge_Click;
             // 
             // lblStatus
             // 
