@@ -33,6 +33,8 @@
             btnRemove = new Button();
             btnMoveUp = new Button();
             btnMoveDown = new Button();
+            btnMerge = new Button();
+            lblStatus = new Label();
             SuspendLayout();
             // 
             // lstPdfFiles
@@ -48,15 +50,18 @@
             // 
             // btnAdd
             // 
+            btnAdd.Anchor = AnchorStyles.Bottom;
             btnAdd.Location = new Point(101, 262);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(94, 29);
             btnAdd.TabIndex = 1;
             btnAdd.Text = "+ Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnRemove
             // 
+            btnRemove.Anchor = AnchorStyles.Bottom;
             btnRemove.Location = new Point(201, 262);
             btnRemove.Name = "btnRemove";
             btnRemove.Size = new Size(94, 29);
@@ -66,6 +71,7 @@
             // 
             // btnMoveUp
             // 
+            btnMoveUp.Anchor = AnchorStyles.Bottom;
             btnMoveUp.Location = new Point(347, 262);
             btnMoveUp.Name = "btnMoveUp";
             btnMoveUp.Size = new Size(94, 29);
@@ -75,6 +81,7 @@
             // 
             // btnMoveDown
             // 
+            btnMoveDown.Anchor = AnchorStyles.Bottom;
             btnMoveDown.Location = new Point(447, 262);
             btnMoveDown.Name = "btnMoveDown";
             btnMoveDown.Size = new Size(94, 29);
@@ -82,11 +89,34 @@
             btnMoveDown.Text = "▼ Down";
             btnMoveDown.UseVisualStyleBackColor = true;
             // 
+            // btnMerge
+            // 
+            btnMerge.Anchor = AnchorStyles.Bottom;
+            btnMerge.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMerge.Location = new Point(231, 313);
+            btnMerge.Name = "btnMerge";
+            btnMerge.Size = new Size(156, 38);
+            btnMerge.TabIndex = 5;
+            btnMerge.Text = "📄 Merge PDFs";
+            btnMerge.UseVisualStyleBackColor = true;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Anchor = AnchorStyles.Bottom;
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(201, 365);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(211, 20);
+            lblStatus.TabIndex = 6;
+            lblStatus.Text = "Ready, Add PDF files to merge";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(652, 403);
+            Controls.Add(lblStatus);
+            Controls.Add(btnMerge);
             Controls.Add(btnMoveDown);
             Controls.Add(btnMoveUp);
             Controls.Add(btnRemove);
@@ -97,6 +127,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PDF Merger";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -106,5 +137,7 @@
         private Button btnRemove;
         private Button btnMoveUp;
         private Button btnMoveDown;
+        private Button btnMerge;
+        private Label lblStatus;
     }
 }
